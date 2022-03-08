@@ -40,3 +40,13 @@ Spot gridMap::getEnd()
 {
     return m_end;
 }
+
+int gridMap::getEuclideanToEnd(Spot now)
+{
+    return abs(now.m_x - m_end.m_x) + abs(now.m_y - m_end.m_y);
+}
+
+int gridMap::getEuclideanToStart(Spot now)
+{
+    return abs(now.m_x - m_start.m_x) + abs(now.m_y - m_start.m_y);
+}
