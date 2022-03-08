@@ -11,9 +11,11 @@ struct Spot
     int h;
     int m_x;
     int m_y;
+    Spot *pre;
     // bool is_obstacle;
-    Spot(int x, int y):m_x(x), m_y(y), g(0), h(0)/*, is_obstacle(false)*/{};
-    Spot():m_x(0), m_y(0), g(0), h(0){};//默认构造函数
+    Spot(int x, int y):m_x(x), m_y(y), g(0), h(0), pre(nullptr)/*, is_obstacle(false)*/{};
+    Spot(int x, int y, Spot* spot):m_x(x), m_y(y), g(0), h(0), pre(spot)/*, is_obstacle(false)*/{};
+    Spot():m_x(0), m_y(0), g(0), h(0), pre(nullptr){};//默认构造函数
     bool operator == (Spot spot){return spot.m_x == m_x && spot.m_y == m_y;};
     Spot operator = (Spot spot){return Spot(spot.m_x, spot.m_y);};
 };

@@ -20,6 +20,7 @@ private:
 
     Spot open_pop();
     void open_push(Spot spot);
+    void close_push(Spot spot);
 public:
     A_Star(int map_size);
     ~A_Star();
@@ -49,27 +50,42 @@ Spot A_Star::open_pop()
 
 void A_Star::try_next_step(Spot spot)
 {
-    Spot newSpot;
+    // Spot newSpot;    
     if(close_list.find(spot) == close_list.end())
     {
-
+        close_push(spot);
     }
+    spot = move(open_pop());
+    try_next_push(spot);
 }
 void A_Star::open_push(Spot spot)
 {
+    if (spot.m_x < 0 || 
+        spot.m_y < 0 || 
+        spot.m_x > MAX_MAP_SIZE - 1 || 
+        spot.m_y > MAX_MAP_SIZE - 1)
+    {
+        return;
+    }
+    
     spot.g = mmap->getEuclideanToStart(spot);
     spot.h = mmap->getEuclideanToEnd(spot);
     open_list.push(spot);
 }
 
 void A_Star::try_next_push(Spot spot)
-{
-    open_push(Spot(spot.m_x, spot.m_y+1));
-    open_push(Spot(spot.m_x+1, spot.m_y));
-    open_push(Spot(spot.m_x-1, spot.m_y));
-    open_push(Spot(spot.m_x, spot.m_y-1));
+{    
+    open_push(Spot(spot.m_x, spot.m_y+1, &spot));
+    open_push(Spot(spot.m_x+1, spot.m_y, &spot));
+    open_push(Spot(spot.m_x-1, spot.m_y, &spot));
+    open_push(Spot(spot.m_x, spot.m_y-1, &spot));
 }
 void A_Star::start()
 {
     Spot start = mmap->getStart();
+}
+
+void A_Star::close_push(Spot spot)
+{
+    close_list.insert(spot);
 }
