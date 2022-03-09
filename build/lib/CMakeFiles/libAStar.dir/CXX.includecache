@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/usr/Document/Astar-algorithm/lib/A*.cpp
+A*.h
+/usr/Document/Astar-algorithm/lib/A*.h
+
+/usr/Document/Astar-algorithm/lib/A*.h
+queue
+-
+vector
+-
+set
+-
+functional
+-
+gridMap.h
+/usr/Document/Astar-algorithm/lib/gridMap.h
+
+/usr/Document/Astar-algorithm/lib/gridMap.cpp
+gridMap.h
+/usr/Document/Astar-algorithm/lib/gridMap.h
+
+/usr/Document/Astar-algorithm/lib/gridMap.h
+iostream
+-
+set
+-
+
