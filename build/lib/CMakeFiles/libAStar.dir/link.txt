@@ -1,0 +1,2 @@
+/usr/bin/ar qc libAStar.a  "CMakeFiles/libAStar.dir/A*.cpp.o" CMakeFiles/libAStar.dir/gridMap.cpp.o
+/usr/bin/ranlib libAStar.a
