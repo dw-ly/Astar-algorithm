@@ -45,7 +45,5 @@ private:
     Spot m_start;//不带参数会提示没有默认构造函数，或者添加一个默认构造函数
     Spot m_end;
     set<Spot> obstacleSpots;
-    // map<Spot, bool> mapSpots;
-
 };
 

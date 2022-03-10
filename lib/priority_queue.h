@@ -1,3 +1,6 @@
+/*
+可用来参考实现功能，使得可以获取集合内任意元素修改后重新入队。
+*/
 #include <iostream>
 #include <vector>
 #include <assert.h>

@@ -29,5 +29,4 @@ public:
     void try_next_push(Spot spot);
     bool try_next_step(Spot spot);
     bool startAlgorithm();
-    // function<void(Spot, Spot)> cmp;
 };
