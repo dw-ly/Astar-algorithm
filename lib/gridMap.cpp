@@ -11,8 +11,20 @@ void gridMap::init()
     printf("init gridMap\n");
     initStartAndEnd();
     initObstacle(OBSTACLE_COUNT);
+    // initOpenMap(MAX_MAP_SIZE);
 }
-
+void gridMap::initOpenMap(int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            open_map_g[make_pair(i,j)] = 0;
+        }
+        
+    }
+    
+}
 void gridMap::initObstacle(int count)
 {
     for (int i = 0; i < count; i++)
@@ -60,7 +72,7 @@ void gridMap::printMap(set<Spot> spots)
     printf("close size=%ld\n",spots.size());
     for (auto spot : spots)
     {
-        printf("close(%d,%d)",spot.m_x, spot.m_y);
+        printf("close(%d,%d)\n",spot.m_x, spot.m_y);
         close_map[spot.m_x] = spot.m_y;
     }
     

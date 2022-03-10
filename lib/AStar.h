@@ -20,7 +20,7 @@ private:
     set<Spot> close_list;
 
     Spot open_pop();
-    void open_push(Spot spot);
+    void open_push(Spot spot, Spot &f_spot);
     void close_push(Spot spot);
 public:
     A_Star(int map_size);
@@ -28,6 +28,6 @@ public:
 
     void try_next_push(Spot spot);
     bool try_next_step(Spot spot);
-    void startAlgorithm();
+    bool startAlgorithm();
     // function<void(Spot, Spot)> cmp;
 };
