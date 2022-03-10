@@ -1,6 +1,6 @@
 #include <iostream>
 #include <set>
-
+#include <map>
 #define MAX_MAP_SIZE 10
 #define OBSTACLE_COUNT 5
 
@@ -15,10 +15,11 @@ struct Spot
     Spot(int x, int y):m_x(x), m_y(y), fn(0), pre(nullptr)/*, is_obstacle(false)*/{};
     Spot(int x, int y, Spot* spot):m_x(x), m_y(y), fn(0), pre(spot)/*, is_obstacle(false)*/{};
     Spot():m_x(0), m_y(0), fn(0), pre(nullptr){};//默认构造函数
-    bool operator == (Spot spot){return spot.m_x == m_x && spot.m_y == m_y;};
-    Spot operator = (Spot spot){return Spot(spot.m_x, spot.m_y);};
-    bool operator>(Spot spot){return spot.fn > fn;};
-    bool operator<(Spot spot){return spot.fn < fn;};
+    bool operator == (Spot spot) const{return spot.m_x == m_x && spot.m_y == m_y;};
+    bool operator != (Spot spot) const{return spot.m_x != m_x || spot.m_y != m_y;};
+    // Spot operator = (Spot &spot) {return spot;};
+    bool operator>(Spot spot) const{return spot.fn > fn;};
+    bool operator<(Spot spot) const{return spot.fn < fn;};
 };
 
 class gridMap
@@ -34,6 +35,7 @@ public:
     Spot getEnd();
     int getEuclideanToEnd(Spot now);
     int getEuclideanToStart(Spot now);
+    void printMap(set<Spot> spots);
 private:
     int m_size;
     Spot m_start;//不带参数会提示没有默认构造函数，或者添加一个默认构造函数

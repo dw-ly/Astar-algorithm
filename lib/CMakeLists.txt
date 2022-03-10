@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
-set(LIB_SRC A*.cpp gridMap.cpp)
+set(LIB_SRC AStar.cpp gridMap.cpp)
+# set(LIB_SRC gridMap.cpp)
 add_library(libAStar ${LIB_SRC}) #.a
 #add_library(libhello SHARED ${LIB_SRC}) #.so
 #设置输出位置

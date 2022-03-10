@@ -2,12 +2,13 @@
 #include <vector>
 #include <set>
 #include <functional>
+#include <unistd.h>
 #include "gridMap.h"
 struct cmp
 {
     bool operator ()(Spot a, Spot b)//重写仿函数
     {
-        return a.fn > b.fn;
+        return a.fn < b.fn;
     }
 };
 
@@ -26,7 +27,7 @@ public:
     ~A_Star();
 
     void try_next_push(Spot spot);
-    void try_next_step(Spot spot);
+    bool try_next_step(Spot spot);
     void startAlgorithm();
     // function<void(Spot, Spot)> cmp;
 };
