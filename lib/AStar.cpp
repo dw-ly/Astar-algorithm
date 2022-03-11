@@ -17,18 +17,43 @@ Spot A_Star::open_pop()
     return top; 
 }
 
+bool A_Star::startAlgorithm()
+{
+    printf("start Algorithm\n");
+    Spot start = mmap->getStart();
+    open_list.push(start);
+    while (1)
+    {
+        // printf("try_next_step open_list top=(%d,%d)\n", open_list.top().m_x, open_list.top().m_y);
+        if(try_next_step(open_list.top()))
+            break;
+    }
+    printf("open %ld\n", open_list.size());
+    // mmap->printMap(close_list);
+    Spot spot = mmap->getEnd();
+    // printList(spot);
+
+    return true;
+}
+
 bool A_Star::try_next_step(Spot spot)
 {
+    printf("try_next_step start\n");
+
     if (spot == mmap->getEnd() /*|| open_list.size() == 0*/)
     {
-        printf("get end\n");
+        printf("get end (%d,%d) (%d,%d)\n", spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
         close_push(spot);
+        // mmap->setEnd(spot);
+        printList(spot);
         return true;
     }
+    open_list.pop();
+    printf("before close_push (%d,%d)\n", spot.m_x, spot.m_y);
 
-    spot = move(open_pop());
     close_push(spot);
     try_next_push(spot);
+    printf("try_next_step end\n");
 
     return false;
 }
@@ -45,91 +70,109 @@ void A_Star::try_next_push(Spot spot)
     open_push(Spot(spot.m_x+1, spot.m_y-1), spot);
     open_push(Spot(spot.m_x-1, spot.m_y+1), spot);
 }
+
 void A_Star::open_push(Spot spot, Spot &f_spot)
 {
     if (spot.m_x < 0 || 
-        spot.m_y < 0 || 
+        spot.m_y < 0 ||
+        //(spot.m_x == mmap->getStart().m_x && spot.m_y == mmap->getStart().m_y) ||
         spot.m_x > MAX_MAP_SIZE - 1 || 
-        spot.m_y > MAX_MAP_SIZE - 1 ||
-        spot == mmap->getStart()
+        spot.m_y > MAX_MAP_SIZE - 1 //||
+        //spot == mmap->getStart() ||
         /*添加障碍物判断*/)
     {
         return;
     }
+    if (spot == mmap->getStart())
+    {
+        mmap->open_map_g.emplace(make_pair(mmap->getStart().m_x, mmap->getStart().m_y), 0);
+        return;
+    }
+    
+    // if (spot == mmap->getEnd())
+    // {
+    //     spot.pre = &f_spot;
+    //     printf("open push end (%d,%d) (%d,%d)\n", spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
+    //     // return;
+    // }
+    
     pair<int, int> open_key = make_pair(spot.m_x, spot.m_y);
     if (mmap->open_map_g.find(open_key) == mmap->open_map_g.end())
     {
-        spot.h = close_list.size() + 1;//mmap->getEuclideanToEnd(spot);
-        spot.g = mmap->getEuclideanToStart(spot);
+        spot.h = mmap->getEuclideanToEnd(spot);
+        spot.g = close_list.size() + 1;//mmap->getEuclideanToStart(spot);
         //close_list.size() + 1;//
         spot.fn = spot.g + spot.h;
+        // printf("f_spot--------(%d,%d)(%d,%d)",spot.m_x, spot.m_y, f_spot.m_x, f_spot.m_y);
         spot.pre = &f_spot;
+        printf("f_spot--------(%d,%d)(%d,%d)",spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
+
         mmap->open_map_g.emplace(open_key, spot.g);
         open_list.push(spot);
-        printf("open push 1 x=%d, y=%d\n", spot.m_x, spot.m_y);
 
+        // Spot start = mmap->getStart();
+        // if (spot.pre != nullptr)
+        // {
+        //     printf("open push 1 (%d,%d) (%d,%d)\n", spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
+        // }
+        return;
     }
-    else
+    // else
     {
         if (spot.g < mmap->open_map_g[open_key])
         {
             priority_queue<Spot, vector<Spot>, cmp> new_open_list;
-            for (int i = 0; i < open_list.size(); i++)
+            for (int i = 0; i < open_list.size(); i++)//全部出队，修改对应点g值和指针后重新入队
             {
                 Spot open_spot = open_list.top();
-                if (open_spot.m_x == spot.m_x && open_spot.m_y == spot.m_y)
+                open_list.pop();
+                if (open_spot.m_x == spot.m_x && open_spot.m_y == spot.m_y)//需要修改的spot
                 {
-                    spot.h = close_list.size() + 1;//mmap->getEuclideanToEnd(spot);
-                    spot.g = mmap->getEuclideanToStart(spot);
+                    spot.h = mmap->getEuclideanToEnd(spot);
+                    spot.g = close_list.size() + 1;//mmap->getEuclideanToStart(spot);
                     //close_list.size() + 1;//
                     spot.fn = spot.g + spot.h;
+                    // printf("f_spot--------(%d,%d)(%d,%d)",spot.m_x, spot.m_y, f_spot.m_x, f_spot.m_y);
                     spot.pre = &f_spot;
-                    new_open_list.push(open_spot);
-                    open_list.pop();
+                    printf("f_spot--------(%d,%d)(%d,%d)",spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
+
+                    new_open_list.push(spot);
+                    // open_list.pop();
+                    mmap->open_map_g[open_key] = spot.g;
                 }
                 else
                 {
                     new_open_list.push(open_spot);
-                    open_list.pop();
+                    // open_list.pop();
                 }
             }
-            mmap->open_map_g[open_key] = spot.g;
+            // mmap->open_map_g[open_key] = spot.g;
             open_list = std::move(new_open_list);
-            printf("open push 2 x=%d, y=%d\n", spot.m_x, spot.m_y);
 
+            // Spot start = mmap->getStart();
+            // if (spot.pre != nullptr)
+            // {
+            //     printf("open push 2 (%d,%d) (%d,%d)\n", spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y);
+            // }
         }
-        
     }
-}
-
-
-bool A_Star::startAlgorithm()
-{
-    printf("start Algorithm\n");
-    Spot start = mmap->getStart();
-    open_list.push(start);
-    while (1)
-    {
-        if(try_next_step(open_list.top()))
-            break;
-    }
-
-    printf("check is it end (%d,%d)\n",open_list.top().m_x, open_list.top().m_y);
-    // close_push(open_list.top());
-    printf("open %ld\n", open_list.size());
-    mmap->printMap(close_list);
-    return true;
-    // if (open_list.size() == 0)
-    //     return false;
-    // else
-    //     return true;
 }
 
 void A_Star::close_push(Spot spot)
 {
-    mmap->printMap(close_list);
-    sleep(1);
+    // sleep(1);
     printf("close push(%d,%d)\n", spot.m_x, spot.m_y);
     close_list.emplace(spot);
-    //printf("close push close_list size=%ld\n", close_list.size());
+    mmap->printMap(close_list);
+}
+
+void A_Star::printList(Spot &spot)
+{
+    // printf("\n");
+    printf("printList (%d, %d)\n", spot.m_x, spot.m_y);
+    if (spot.pre != nullptr)
+    {
+        printList(*spot.pre);
+    }
+    
 }

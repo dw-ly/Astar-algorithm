@@ -8,7 +8,7 @@ struct cmp
 {
     bool operator ()(Spot a, Spot b)//重写仿函数
     {
-        return a.fn < b.fn;
+        return a.fn > b.fn;//">"
     }
 };
 
@@ -29,4 +29,5 @@ public:
     void try_next_push(Spot spot);
     bool try_next_step(Spot spot);
     bool startAlgorithm();
+    void printList(Spot &spot);
 };

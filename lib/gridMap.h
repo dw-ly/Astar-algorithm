@@ -20,8 +20,8 @@ struct Spot
     bool operator == (Spot spot) const{return spot.m_x == m_x && spot.m_y == m_y;};
     bool operator != (Spot spot) const{return spot.m_x != m_x || spot.m_y != m_y;};
     // Spot operator = (Spot &spot) {return spot;};
-    bool operator>(Spot spot) const{return spot.fn > fn || spot.m_x > m_x || spot.m_y > m_y;};
-    bool operator<(Spot spot) const{return spot.fn < fn || spot.m_x < m_x || spot.m_y < m_y;};
+    bool operator>(Spot spot) const{return /*spot.fn > fn ||*/ spot.m_x > m_x || spot.m_y > m_y;};
+    bool operator<(Spot spot) const{return /*spot.fn < fn ||*/ spot.m_x < m_x || spot.m_y < m_y;};
 };
 
 class gridMap
@@ -36,10 +36,12 @@ public:
     void init();
     Spot getStart();
     Spot getEnd();
+    void setEnd(Spot spot);
     int getEuclideanToEnd(Spot now);
     int getEuclideanToStart(Spot now);
     void printMap(set<Spot> spots);
     map<pair<int, int>, int> open_map_g;
+    map<pair<int, int>, int> close_map;
 private:
     int m_size;
     Spot m_start;//不带参数会提示没有默认构造函数，或者添加一个默认构造函数

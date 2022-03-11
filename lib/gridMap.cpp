@@ -56,6 +56,10 @@ Spot gridMap::getEnd()
     return m_end;
 }
 
+void gridMap::setEnd(Spot spot)
+{
+    m_end = spot;
+}
 int gridMap::getEuclideanToEnd(Spot now)
 {
     return abs(now.m_x - m_end.m_x) + abs(now.m_y - m_end.m_y);
@@ -68,13 +72,17 @@ int gridMap::getEuclideanToStart(Spot now)
 
 void gridMap::printMap(set<Spot> spots)
 {
-    map<int, int> close_map;
-    printf("close size=%ld\n",spots.size());
-    for (auto spot : spots)
-    {
-        printf("close(%d,%d)\n",spot.m_x, spot.m_y);
-        close_map[spot.m_x] = spot.m_y;
-    }
+    // map<int, int> close_map;
+    // printf("close size=%ld\n",spots.size());
+    // for (auto spot : spots)
+    // {
+    //     if (spot.pre != nullptr)
+    //     {
+    //         printf("close(%d,%d) pre (%d,%d)  pre pre (%d,%d)\n",spot.m_x, spot.m_y, spot.pre->m_x, spot.pre->m_y, spot.pre->pre->m_x, spot.pre->pre->m_y);        
+    //     }
+        
+    //     // close_map[spot.m_x] = spot.m_y;
+    // }
     
     // for (int i = 0; i < MAX_MAP_SIZE; i++)
     // {
