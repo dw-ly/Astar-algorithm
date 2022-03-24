@@ -1,7 +1,7 @@
 #include <iostream>
 #include <set>
 #include <map>
-#define MAX_MAP_SIZE 10
+#define MAX_MAP_SIZE 100
 #define OBSTACLE_COUNT 5
 
 using namespace std;
@@ -15,7 +15,7 @@ struct Spot
     Spot *pre;
     // bool is_obstacle;
     Spot(int x, int y):m_x(x), m_y(y), fn(0), g(0), h(0), pre(nullptr)/*, is_obstacle(false)*/{};
-    // Spot(int x, int y, Spot* spot):m_x(x), m_y(y), fn(0), g(0), h(0), pre(spot)/*, is_obstacle(false)*/{};
+    Spot(int x, int y, Spot* spot):m_x(x), m_y(y), fn(0), g(0), h(0), pre(spot)/*, is_obstacle(false)*/{};
     Spot():m_x(0), m_y(0), fn(0), g(0), h(0), pre(nullptr){};//默认构造函数
     bool operator == (Spot spot) const{return spot.m_x == m_x && spot.m_y == m_y;};
     bool operator != (Spot spot) const{return spot.m_x != m_x || spot.m_y != m_y;};
@@ -42,6 +42,7 @@ public:
     void printMap(set<Spot> spots);
     map<pair<int, int>, int> open_map_g;
     map<pair<int, int>, int> close_map;
+    map<pair<int, int>, Spot> map_spot;
 private:
     int m_size;
     Spot m_start;//不带参数会提示没有默认构造函数，或者添加一个默认构造函数

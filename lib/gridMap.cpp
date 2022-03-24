@@ -9,9 +9,9 @@ gridMap::gridMap(int size)
 void gridMap::init()
 {
     printf("init gridMap\n");
-    initStartAndEnd();
+    initStartAndEnd(Spot(20,5), Spot(3,98));
     initObstacle(OBSTACLE_COUNT);
-    // initOpenMap(MAX_MAP_SIZE);
+    initOpenMap(MAX_MAP_SIZE);
 }
 void gridMap::initOpenMap(int size)
 {
@@ -19,7 +19,8 @@ void gridMap::initOpenMap(int size)
     {
         for (int j = 0; j < size; j++)
         {
-            open_map_g[make_pair(i,j)] = 0;
+            // open_map_g[make_pair(i,j)] = 0;
+            map_spot[make_pair(i,j)] = Spot(i,j);
         }
         
     }
