@@ -1,17 +1,22 @@
 #include "gridMap.h"
 
-gridMap::gridMap(int size)
+gridMap::gridMap(int size, int start_x, int start_y, int end_x, int end_y)
 {
+    initOpenMap(MAX_MAP_SIZE);
     m_size = size;
-    init();
+    m_start = map_spot[make_pair(start_x, start_y)];
+    m_end = map_spot[make_pair(end_x, end_y)];
+    initObstacle(OBSTACLE_COUNT);
+
+    // init();
 }
 
 void gridMap::init()
 {
     printf("init gridMap\n");
-    initStartAndEnd(Spot(20,5), Spot(3,98));
+    // initStartAndEnd(Spot(20,5), Spot(3,98));
     initObstacle(OBSTACLE_COUNT);
-    initOpenMap(MAX_MAP_SIZE);
+    // initOpenMap(MAX_MAP_SIZE);
 }
 void gridMap::initOpenMap(int size)
 {

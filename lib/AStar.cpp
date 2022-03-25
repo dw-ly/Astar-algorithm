@@ -1,8 +1,8 @@
 
 #include "AStar.h"
-A_Star::A_Star(int map_size)
+A_Star::A_Star()
 {
-    mmap = new gridMap(map_size);//TODO
+    mmap = new gridMap(MAX_MAP_SIZE, START_X, START_Y, END_X, END_Y);//TODO
 }
 
 A_Star::~A_Star()

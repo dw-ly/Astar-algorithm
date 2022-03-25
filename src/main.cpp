@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     printf("main A Star start\n");
-    A_Star a_star(MAX_MAP_SIZE);
+    A_Star a_star;
     if(a_star.startAlgorithm())
         printf("success\n");
     else

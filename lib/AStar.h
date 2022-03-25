@@ -26,7 +26,7 @@ private:
     void open_push(pair<int, int> locate, pair<int, int> f_locate);
     void close_push(Spot spot);
 public:
-    A_Star(int map_size);
+    A_Star();
     ~A_Star();
 
     void try_next_push(Spot spot);

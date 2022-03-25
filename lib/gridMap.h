@@ -2,6 +2,10 @@
 #include <set>
 #include <map>
 #define MAX_MAP_SIZE 100
+#define START_X 5
+#define START_Y 18
+#define END_X 77
+#define END_Y 9
 #define OBSTACLE_COUNT 5
 
 using namespace std;
@@ -27,7 +31,7 @@ struct Spot
 class gridMap
 {
 public:
-    gridMap(int size);
+    gridMap(int size, int start_x, int start_y, int end_x, int end_y);
     ~gridMap() = default;
     bool checkSpot(Spot spot);
     void initObstacle(int count);
