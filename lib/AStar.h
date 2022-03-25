@@ -22,7 +22,6 @@ private:
     map<pair<int, int>, Spot> close_map;
 
     Spot open_pop();
-    void open_push(Spot spot, Spot &f_spot);
     void open_push(pair<int, int> locate, pair<int, int> f_locate);
     void close_push(Spot spot);
 public:

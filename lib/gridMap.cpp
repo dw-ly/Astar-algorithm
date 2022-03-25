@@ -37,7 +37,8 @@ void gridMap::initObstacle(int count)
     {
         int r_x = rand();//TODO
         int r_y = rand();
-        obstacleSpots.emplace(Spot(r_x, r_y));    
+        // obstacleSpots.emplace(Spot(r_x, r_y));  
+        obstacle_locate.emplace(make_pair(r_x, r_y));  
     }
 }
 void gridMap::initStartAndEnd(Spot start, Spot end)
