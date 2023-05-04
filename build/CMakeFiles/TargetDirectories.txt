@@ -1,0 +1,8 @@
+/usr/Document/Astar-algorithm/build/CMakeFiles/edit_cache.dir
+/usr/Document/Astar-algorithm/build/CMakeFiles/rebuild_cache.dir
+/usr/Document/Astar-algorithm/build/src/CMakeFiles/A_Star.dir
+/usr/Document/Astar-algorithm/build/src/CMakeFiles/edit_cache.dir
+/usr/Document/Astar-algorithm/build/src/CMakeFiles/rebuild_cache.dir
+/usr/Document/Astar-algorithm/build/lib/CMakeFiles/libAStar.dir
+/usr/Document/Astar-algorithm/build/lib/CMakeFiles/edit_cache.dir
+/usr/Document/Astar-algorithm/build/lib/CMakeFiles/rebuild_cache.dir

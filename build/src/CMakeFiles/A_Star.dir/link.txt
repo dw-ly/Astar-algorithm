@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/A_Star.dir/main.cpp.o -o ../bin/A_Star  ../lib/libAStar.a 
